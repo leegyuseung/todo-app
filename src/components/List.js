@@ -1,25 +1,6 @@
 import React from "react";
 
 const List = ({ todoData, setTodoData }) => {
-  //버튼 스타일
-  const btnStyle = {
-    color: "#fff",
-    border: "none",
-    padding: "5px 9px",
-    borderRedius: "50%",
-    cursor: "pointer",
-    float: "right",
-  };
-
-  //리스트 스타일
-  const getStyle = (completed) => {
-    return {
-      padding: "10px",
-      borderBottom: "1px #ccc dotted",
-      textDecoration: completed ? "line-through" : "none",
-    };
-  };
-
   // 삭제 함수
   const handleClick = (id) => {
     let newTodoData = todoData.filter((data) => data.id !== id);
@@ -39,16 +20,27 @@ const List = ({ todoData, setTodoData }) => {
   return (
     <div>
       {todoData.map((data) => (
-        <div style={getStyle(data.completed)} key={data.id}>
-          <input
-            type="checkbox"
-            defaultChecked={false}
-            onChange={() => handleCompleteChange(data.id)}
-          />
-          {data.title}
-          <button style={btnStyle} onClick={() => handleClick(data.id)}>
-            X
-          </button>
+        <div key={data.id}>
+          <div className="flex items-center justify-between w-full px-4 py-1 my-2 text-gray-600 bg-gray-100 border rounded">
+            <div className="items-center">
+              <input
+                type="checkbox"
+                defaultChecked={false}
+                onChange={() => handleCompleteChange(data.id)}
+              />
+              <span className={data.completed ? "line-through" : undefined}>
+                {data.title}
+              </span>
+            </div>
+            <div className="items-center">
+              <button
+                className="px-4 py-2 float-right"
+                onClick={() => handleClick(data.id)}
+              >
+                X
+              </button>
+            </div>
+          </div>
         </div>
       ))}
     </div>
